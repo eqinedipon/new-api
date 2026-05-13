@@ -66,9 +66,11 @@ export function ConfirmDialog({
 
   const handleConfirm = () => {
     onConfirm();
-    // Always close the dialog after confirming — if the parent needs to keep it
-    // open during an async operation, it should set `open` to true again itself.
-    onOpenChange(false);
+    // NOTE: Not closing the dialog here when loading is true — the parent controls
+    // the open state during async operations via the `loading` prop.
+    if (!loading) {
+      onOpenChange(false);
+    }
   };
 
   return (
